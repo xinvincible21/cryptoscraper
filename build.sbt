@@ -16,9 +16,7 @@ lazy val root = (project in file("."))
       "dev.zio" %% "zio" % "2.0.6",
       "com.github.ghostdogpr" %% "caliban-zio-http" % "2.0.2",
       "org.mongodb" % "mongodb-driver-sync" % "4.8.2",
-      "org.slf4j" % "slf4j-log4j12" % "2.0.6",
-      "io.github.zeal18" %% "zio-mongodb-bson" % "0.10.0",
-      "io.github.zeal18" %% "zio-mongodb-driver" % "0.10.0"
+      "org.slf4j" % "slf4j-log4j12" % "2.0.6"
     )
 
   )
