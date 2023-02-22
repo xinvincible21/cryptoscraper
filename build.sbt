@@ -3,12 +3,16 @@ ThisBuild / version := "0.1.0-SNAPSHOT"
 
 lazy val root = (project in file("."))
   .settings(
-    name := "theorg",
+    name := "cryptoscraper",
     scalaVersion := "2.12.14",
     Compile / scalacOptions += "-Xlint",
     Compile / console / scalacOptions --= Seq("-Ywarn-unused", "-Ywarn-unused-import"),
     scalacOptions --= Seq("-Ywarn-unused", "-Ywarn-unused-import"),
     Test / fork := true,
+    assembly / assemblyMergeStrategy := {
+      case PathList("META-INF", _*) => MergeStrategy.discard
+      case _ => MergeStrategy.first
+    },
     libraryDependencies ++= Seq(
       "org.scalatestplus" %% "selenium-3-141" % "3.2.10.0",
       "org.jsoup" % "jsoup" % "1.15.3",
@@ -20,10 +24,5 @@ lazy val root = (project in file("."))
     )
 
   )
-
-assemblyMergeStrategy in assembly := {
-  case PathList("META-INF", _*) => MergeStrategy.discard
-  case _                        => MergeStrategy.first
-}
 
 
