@@ -10,7 +10,7 @@ object TestCode {
 
   def main(args:Array[String]):Unit = {
     implicit val client = getClient()
-    implicit val db = getDb("theorg")
+    implicit val db = getDb("cryptoscraper")
     implicit val coll: MongoCollection[Document] = getCollection(s"crypto_${dateSuffix}")
     val cryptos = findAll()
     cryptos.map(println)

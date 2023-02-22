@@ -14,7 +14,7 @@ object FindGeminiPrices {
 
     implicit val driver = initDriver()
     implicit val client = MongoDB.getClient()
-    implicit val db = MongoDB.getDb(s"theorg")
+    implicit val db = MongoDB.getDb(s"cryptoscraper")
     implicit val coll: MongoCollection[Document] = MongoDB.getCollection(s"crypto_${dateSuffix()}")
     driver.get(s"https://gemini.com/prices")
     val js = driver.asInstanceOf[JavascriptExecutor]

@@ -18,7 +18,7 @@ object MongoDB {
 
   def loadAll() = {
     implicit val client = MongoDB.getClient()
-    implicit val db = MongoDB.getDb("theorg")
+    implicit val db = MongoDB.getDb("cryptoscraper")
     implicit val coll: MongoCollection[Document] = MongoDB.getCollection(s"crypto_${dateSuffix()}")
     val cryptos = findAll()
     client.close()
