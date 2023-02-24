@@ -1,7 +1,7 @@
 package com.invincible
 
 import com.invincible.CryptoData.Crypto
-import com.invincible.Utils.dateSuffix
+import com.invincible.Utils.{convertToDisplayNumber, dateTimeSuffix}
 import com.mongodb.client.{MongoClient, MongoClients, MongoCollection, MongoDatabase}
 import org.bson.Document
 import org.bson.conversions.Bson
@@ -16,10 +16,13 @@ object MongoDB {
   def getDb(name:String)(implicit client:MongoClient) = client.getDatabase(name)
   def getCollection(name: String)(implicit db: MongoDatabase) = db.getCollection(name)
 
+  def findLatestCollection()(implicit db: MongoDatabase) =
+    db.listCollections().iterator().asScala.toList.map(_.get("name").toString).sorted.last
+
   def loadAll() = {
     implicit val client = MongoDB.getClient()
     implicit val db = MongoDB.getDb("cryptoscraper")
-    implicit val coll: MongoCollection[Document] = MongoDB.getCollection(s"crypto_${dateSuffix()}")
+    implicit val coll: MongoCollection[Document] = getCollection(MongoDB.findLatestCollection())
     val cryptos = findAll()
     client.close()
     cryptos
@@ -31,9 +34,11 @@ object MongoDB {
     val o =
       cryptos.asScala.map{ result =>
           Crypto(
-            result.get("name").asInstanceOf[String],
-            result.get("symbol").asInstanceOf[String],
-            result.get("price").asInstanceOf[Double]
+            name = result.get("name").asInstanceOf[String],
+            symbol = result.get("symbol").asInstanceOf[String],
+            price = result.get("price").asInstanceOf[Double],
+            twentyFourHrChange = result.get("twentyFourHrChange").asInstanceOf[Double],
+            marketCap = convertToDisplayNumber(result.get("marketCap").asInstanceOf[Long]),
           )
         }
       o.toList
@@ -68,6 +73,8 @@ object MongoDB {
         doc.append("name", c.name)
         doc.append("symbol", c.symbol)
         doc.append("price", c.price)
+        doc.append("twentyFourHrChange", c.twentyFourHrChange)
+        doc.append("marketCap",c.convertMarketCap)
         doc
       }
     if(docs.size > 0) {

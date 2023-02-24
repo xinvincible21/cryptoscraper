@@ -3,7 +3,16 @@ package com.invincible
 
 object CryptoData {
 
-  case class Crypto(name:String, symbol:String, price:Double, displayName:String = "")
+  case class Crypto(
+                     name:String,
+                     symbol:String,
+                     price:Double,
+                     displayName:String = "",
+                     twentyFourHrChange:Double = 0,
+                     marketCap:String = ""
+                   ){
+    def convertMarketCap:Long = Utils.convertDisplayNumber(marketCap)
+  }
   case class CryptosArgs()
   case class CryptoArgs(symbol:String)
 
