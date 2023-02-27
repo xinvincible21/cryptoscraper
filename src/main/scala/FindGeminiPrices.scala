@@ -51,7 +51,7 @@ object FindGeminiPrices {
       ).flatten.toList
 
     js.executeScript("window.scrollBy(0,14000)")
-    val nameSymbol2 = driver.findElement(By.xpath(s"//h5[(text()='Terra')]/.."))
+    val nameSymbol2 = driver.findElement(By.xpath(s"//h5[(text()='Mirror')]/.."))
     val u2 = nameSymbol2.getText.split("\\n")
     val price2 = driver.findElement(By.xpath(s"//h5[contains(text(),'${u2(0)}')]/../../../../../..//h2/span"))
     val twentyFourHrChange2 = driver.findElement(By.xpath(s"//h5[contains(text(),'${u2(0)}')]/../../../../../..//div/div/div"))
@@ -66,7 +66,7 @@ object FindGeminiPrices {
         marketCap = marketCap2
       )
     println(secondLast)
-    val nameSymbol3 = driver.findElement(By.xpath(s"//h5[(text()='Mirror')]/.."))
+    val nameSymbol3 = driver.findElement(By.xpath(s"//h5[(text()='Magic Internet Money')]/.."))
     val u3 = nameSymbol3.getText.split("\\n")
     val price3 = driver.findElement(By.xpath(s"//h5[contains(text(),'${u3(0)}')]/../../../../../..//h2/span"))
     val twentyFourHrChange3 = driver.findElement(By.xpath(s"//h5[contains(text(),'${u3(0)}')]/../../../../../..//div/div/div"))

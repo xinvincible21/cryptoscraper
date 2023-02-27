@@ -3,6 +3,6 @@ java -cp ~/cryptoscraper/target/scala-2.12/cryptoscraper-assembly-0.1.0-SNAPSHOT
 status=$?
 echo "exit status is "$status
 if [[ "status" -eq 0 ]]; then
-   ~/theorg/src/main/resources/run_server.sh restart
+   ~/cryptoscraper/src/main/resources/run_server.sh restart
    exit;
 fi
