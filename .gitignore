@@ -8,3 +8,4 @@
 *.prefs
 target
 .settings
+logs/*

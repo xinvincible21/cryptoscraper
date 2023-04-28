@@ -3,15 +3,14 @@ package com.invincible
 import com.invincible.CryptoData.Crypto
 import com.invincible.Utils.{dateTimeSuffix, initDriver}
 import com.mongodb.client.MongoCollection
-import org.apache.logging.log4j.LogManager
 import org.bson.Document
-import org.openqa.selenium.{By, JavascriptExecutor}
+import org.openqa.selenium.By
 import org.slf4j.LoggerFactory
 
 
 object FindGeminiPrices {
 
-  val logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME)
+  val logger = LoggerFactory.getLogger(this.getClass.getName)
 
   def main(args:Array[String]):Unit = {
 
