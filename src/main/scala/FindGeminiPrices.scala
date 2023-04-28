@@ -28,20 +28,20 @@ object FindGeminiPrices {
               val row = driver.findElement(By.xpath(s"//section/div/div/div/div[1]/div[$i]"))
               val u = row.getText.split("\\n")
               val name = u(0)
-                          logger.debug(s"name $name")
+//              logger.debug(s"name $name")
               val symbol = u(1)
-                          logger.debug(s"symbol $symbol")
+//              logger.debug(s"symbol $symbol")
               val price = u(2).replaceAll(",", "").replaceAll("\\$", "").toDouble
-                          logger.debug(s"price $price")
+//              logger.debug(s"price $price")
               val twentyFourHrChange =
                 if (u.length >= 4) u(3).replaceAll(",", "").replaceAll("\\$", "") else ""
-                          logger.debug(s"twentyFourHrChange $twentyFourHrChange")
+//              logger.debug(s"twentyFourHrChange $twentyFourHrChange")
               val change =
                 if (u.length >= 5) u(4).replace("%", "").toDouble else 0
-                          logger.debug(s"change $change")
+//              logger.debug(s"change $change")
               val marketCap =
                 if (u.length == 6) u(5).replaceAll(",", "").replaceAll("\\$", "") else ""
-                          logger.debug(s"marketCap $marketCap")
+//              logger.debug(s"marketCap $marketCap")
               val c = Crypto(
                 name = name,
                 symbol = symbol,
@@ -65,7 +65,8 @@ object FindGeminiPrices {
       MongoDB.insert(distinctCryptos)
       val distinctCryptos2 = MongoDB.findAll().toSet
       logger.debug(s"Missing entries ${distinctCryptos2.map(_.symbol) -- distinctCryptos.map(_.symbol)}")
-      logger.debug(s"Total cryptos ${distinctCryptos.size}")
+      logger.debug(s"Total cryptos scrapped ${distinctCryptos.size}")
+      logger.debug(s"Total cryptos in db ${distinctCryptos2.size}")
       driver.close()
       System.exit(0)
     } catch {
