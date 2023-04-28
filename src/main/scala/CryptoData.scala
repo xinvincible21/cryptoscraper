@@ -8,7 +8,8 @@ object CryptoData {
                      symbol:String,
                      price:Double,
                      displayName:String = "",
-                     twentyFourHrChange:Double = 0,
+                     twentyFourHrChange:String = "",
+                     change:Double = 0,
                      marketCap:String = ""
                    ){
     def convertMarketCap:Long = Utils.convertDisplayNumber(marketCap)

@@ -37,7 +37,8 @@ object MongoDB {
             name = result.get("name").asInstanceOf[String],
             symbol = result.get("symbol").asInstanceOf[String],
             price = result.get("price").asInstanceOf[Double],
-            twentyFourHrChange = result.get("twentyFourHrChange").asInstanceOf[Double],
+            twentyFourHrChange = result.get("twentyFourHrChange").asInstanceOf[String],
+            change = result.get("change").asInstanceOf[Double],
             marketCap = convertToDisplayNumber(result.get("marketCap").asInstanceOf[Long]),
           )
         }
@@ -74,6 +75,7 @@ object MongoDB {
         doc.append("symbol", c.symbol)
         doc.append("price", c.price)
         doc.append("twentyFourHrChange", c.twentyFourHrChange)
+        doc.append("change", c.change)
         doc.append("marketCap",c.convertMarketCap)
         doc
       }
