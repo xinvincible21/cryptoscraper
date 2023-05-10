@@ -61,9 +61,11 @@ object FindGeminiPrices {
           ).flatten.toList
 
 
+      val oldCollectionName = MongoDB.findLatestCollection()
+      val oldColl = MongoDB.getCollection(oldCollectionName)
+      val distinctCryptos2 = MongoDB.findAll()(oldColl).toSet
       val distinctCryptos = cryptos.toSet
       MongoDB.insert(distinctCryptos)
-      val distinctCryptos2 = MongoDB.findAll().toSet
       logger.debug(s"Missing entries ${distinctCryptos2.map(_.symbol) -- distinctCryptos.map(_.symbol)}")
       logger.debug(s"Total cryptos scraped ${distinctCryptos.size}")
       logger.debug(s"Total cryptos in db ${distinctCryptos2.size}")
