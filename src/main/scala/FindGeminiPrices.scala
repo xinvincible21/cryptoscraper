@@ -66,7 +66,12 @@ object FindGeminiPrices {
       val distinctCryptos2 = MongoDB.findAll()(oldColl).toSet
       val distinctCryptos = cryptos.toSet
       MongoDB.insert(distinctCryptos)
-      logger.debug(s"Missing entries ${distinctCryptos2.map(_.symbol) -- distinctCryptos.map(_.symbol)}")
+
+
+      val symbolSet1 = distinctCryptos2.map(_.symbol)
+      val symbolSet2 = distinctCryptos.map(_.symbol)
+      val missingEntries = (symbolSet1 diff symbolSet2) ++ (symbolSet2 diff symbolSet1)
+      logger.debug(s"Missing entries $missingEntries")
       logger.debug(s"Total cryptos scraped ${distinctCryptos.size}")
       logger.debug(s"Total cryptos in db ${distinctCryptos2.size}")
       driver.close()
