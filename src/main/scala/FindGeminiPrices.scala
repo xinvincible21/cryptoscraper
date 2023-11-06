@@ -7,6 +7,8 @@ import org.bson.Document
 import org.openqa.selenium.By
 import org.slf4j.LoggerFactory
 
+import java.lang.Thread.sleep
+
 
 object FindGeminiPrices {
 
@@ -22,8 +24,8 @@ object FindGeminiPrices {
       driver.get(s"https://gemini.com/prices")
       val cryptos =
         (
-          for (i <- 2 to 135) yield {
-            //          sleep(500)
+          for (i <- 2 to 143) yield {
+                      sleep(500)
             try {
               val row = driver.findElement(By.xpath(s"//section/div/div/div/div[1]/div[$i]"))
               val u = row.getText.split("\\n")
@@ -31,7 +33,7 @@ object FindGeminiPrices {
 //              logger.debug(s"name $name")
               val symbol = u(1)
 //              logger.debug(s"symbol $symbol")
-              val price = u(2).replaceAll(",", "").replaceAll("\\$", "").toDouble
+              val price = if (u.length >= 3) u(2).replaceAll(",", "").replaceAll("\\$", "").toDouble else 0
 //              logger.debug(s"price $price")
               val twentyFourHrChange =
                 if (u.length >= 4) u(3).replaceAll(",", "").replaceAll("\\$", "") else ""
