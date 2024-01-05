@@ -24,10 +24,12 @@ object FindGeminiPrices {
       driver.get(s"https://gemini.com/prices")
       val cryptos =
         (
-          for (i <- 2 to 143) yield {
+          for (i <- 2 to 200) yield {
                       sleep(500)
             try {
-              val row = driver.findElement(By.xpath(s"//section/div/div/div/div[1]/div[$i]"))
+              val row = driver.findElement( By.xpath(s"//section/div/div/div/div[4]/div[1]/div[$i]"))
+              val marketCapSpan = driver.findElement(By.xpath(s"//section/div/div/div/div[4]/div[1]/div[$i]/div[2]/div/div[3]/span")).getAttribute("innerHTML")
+              val marketCap = if(marketCapSpan.startsWith("<span")) "" else marketCapSpan.replaceAll(",", "").replaceAll("\\$", "")
               val u = row.getText.split("\\n")
               val name = u(0)
 //              logger.debug(s"name $name")
@@ -41,8 +43,9 @@ object FindGeminiPrices {
               val change =
                 if (u.length >= 5) u(4).replace("%", "").toDouble else 0
 //              logger.debug(s"change $change")
-              val marketCap =
-                if (u.length == 6) u(5).replaceAll(",", "").replaceAll("\\$", "") else ""
+
+//              val marketCap =
+//                if (u.length == 6) u(5).replaceAll(",", "").replaceAll("\\$", "") else ""
 //              logger.debug(s"marketCap $marketCap")
               val c = Crypto(
                 name = name,
