@@ -10,6 +10,7 @@ object CryptoApp extends ZIOAppDefault {
 
   private val graphiql = Http.fromStream(ZStream.fromResource("graphiql.html"))
 
+  lazy val all = CryptoService.make(MongoDB.loadAll())
   override def run = {
     (for {
       interpreter <- CryptoApi.api.interpreter
@@ -24,7 +25,7 @@ object CryptoApp extends ZIOAppDefault {
                        )
                        .forever
     } yield ())
-      .provideLayer(CryptoService.make(MongoDB.loadAll()))
+      .provideLayer(all)
       .exitCode
   }
 }

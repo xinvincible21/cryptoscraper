@@ -4,7 +4,7 @@ ThisBuild / version := "0.1.0-SNAPSHOT"
 lazy val root = (project in file("."))
   .settings(
     name := "cryptoscraper",
-    scalaVersion := "2.12.14",
+    scalaVersion := "2.12.18",
     Compile / scalacOptions += "-Xlint",
     Compile / console / scalacOptions --= Seq("-Ywarn-unused", "-Ywarn-unused-import"),
     scalacOptions --= Seq("-Ywarn-unused", "-Ywarn-unused-import"),
@@ -14,9 +14,9 @@ lazy val root = (project in file("."))
       case _ => MergeStrategy.first
     },
     libraryDependencies ++= Seq(
-      "org.scalatestplus" %% "selenium-4-17_2.12" % "3.2.18.0",
+      "org.scalatestplus" %% "selenium-4-17" % "3.2.18.0",
       "org.jsoup" % "jsoup" % "1.15.3",
-      "io.github.bonigarcia" % "webdrivermanager" % "5.6.4",
+      "io.github.bonigarcia" % "webdrivermanager" % "5.7.0",
       "dev.zio" %% "zio" % "2.0.6",
       "com.github.ghostdogpr" %% "caliban-zio-http" % "2.0.2",
       "org.mongodb" % "mongodb-driver-sync" % "4.8.2",

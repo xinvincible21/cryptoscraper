@@ -1,7 +1,7 @@
 package com.invincible
 
 import com.invincible.CryptoData.Crypto
-import com.invincible.Utils.{convertToDisplayNumber, dateTimeSuffix}
+import com.invincible.Utils.convertToDisplayNumber
 import com.mongodb.client.{MongoClient, MongoClients, MongoCollection, MongoDatabase}
 import org.bson.Document
 import org.bson.conversions.Bson
@@ -69,7 +69,6 @@ object MongoDB {
 
     val docs =
       for (c <- cryptos) yield {
-        delete(c.symbol)
         val doc = new Document()
         doc.append("name", c.name)
         doc.append("symbol", c.symbol)
