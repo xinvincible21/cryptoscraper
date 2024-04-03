@@ -24,7 +24,7 @@ object FindGeminiPrices {
       driver.get(s"https://gemini.com/prices")
       val cryptos =
         (
-          for (i <- 1 to 150) yield {
+          for (i <- 1 to 155) yield {
                       sleep(500)
             try {
               val row = driver.findElement( By.xpath(s"//section/div/div/div/div[4]/div[1]/div[$i]"))

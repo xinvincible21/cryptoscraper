@@ -24,7 +24,9 @@ object Utils {
   def convertDisplayNumber(strNumber:String):Long = {
     if(strNumber == "") return 0L
     val factor =
-      if (strNumber.contains("B")) {
+     if (strNumber.contains("T")){
+        pow(10, 12)
+      } else if (strNumber.contains("B")) {
         pow(10, 9)
       } else if (strNumber.contains("M")) {
         pow(10, 6)
@@ -36,6 +38,7 @@ object Utils {
     val temp =
       strNumber
         .replace("$","")
+        .replace("T","")
         .replace("B","")
         .replace("M","")
         .replace("K","")
